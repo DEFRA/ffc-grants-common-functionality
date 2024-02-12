@@ -1,0 +1,46 @@
+{
+  "name": "ffc-grants-common-functionality",
+  "version": "0.1.0",
+  "description": "Common functionality package for ffc-grants",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest --runInBand --detectOpenHandles --forceExit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DEFRA/ffc-grants-common-functionality.git"
+  },
+  "keywords": [
+    "ffc-grants",
+    "defra"
+  ],
+  "author": "DEFRA",
+  "license": "SEE LICENSE IN LICENSE",
+  "dependencies": {
+    "joi": "^17.12.1",
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "prettier-standard": "^15.0.1"
+  },
+  "prettier": {
+    "printWidth": 140
+  },
+  "standard": {
+    "env": {
+      "node": true
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "lint-staged": {
+    "*": [
+      "prettier-standard --lint"
+    ]
+  }
+}
