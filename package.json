@@ -6,9 +6,6 @@
   "directories": {
     "lib": "lib"
   },
-  "scripts": {
-    "test": "jest --runInBand --detectOpenHandles --forceExit"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DEFRA/ffc-grants-common-functionality.git"
