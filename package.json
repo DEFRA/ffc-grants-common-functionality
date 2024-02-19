@@ -35,9 +35,6 @@
       "node": true
     }
   },
-  "publishConfig": {
-    "access": "public"
-  },
   "lint-staged": {
     "*": [
       "prettier-standard --lint"
