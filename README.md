@@ -22,7 +22,7 @@ To use the common regex, import the regex object from this package.
 const { regex } = require('ffc-grants-common-functionality')
 ```
 
-Then, call the requested regex from the regex object. For example, to use the CHARS_MIN_10 regex, use the following code:
+Then, call the requested regex from the regex module. For example, to use the CHARS_MIN_10 regex, use the following code:
 
 ```
 regex.CHARS_MIN_10
@@ -54,19 +54,19 @@ To use either of these functions, import **session** from this package
 const { session } = require('ffc-grants-common-funcitonality')
 ```
 
-Then call either the getYarValue or setYarValue function from session. 
+Then call whichever function is needed from this module. 
 
 **getYarValue** requires 2 parameters:
-- request 
-- The yarKey
+- The request 
+- The yarKey to retrieve
 
 ```
 session.getYarValue(request, 'yarKey')
 ```
 
 **setYarValue** requires 3 parameters:
-- request
-- The yarKey
+- The request
+- The yarKey to set
 - The value to set to the yarKey 
 
 ```
@@ -83,7 +83,7 @@ To use either of these funcitons, first import **answerOptions** from the packag
 const { answerOptions } = require('ffc-grants-common-funcitonality')
 ```
 
-Then, call either the getOptions function or the setOptionsLabel function. 
+Then, call whichever function is needed from this module 
 
 **getOptions** requires 4 parameters:
 - data from the yarKey
@@ -116,7 +116,7 @@ To use functions from utils, first import **utils** from the package
 const { utils } = require('ffc-grants-common-functionality')
 ```
 
-Then, call whichever function is needed
+Then, call whichever function is needed from this module
 
 **notUniqueSelection** is used to check if a provided answer is not unique. It uses 2 parameters:
 - A list of the questions answers
@@ -169,6 +169,72 @@ utils.allAnswersSelected(request, questionKey, arrayOfAnswerKeys, arrayOfQuestio
 
 ```
 utils.someAnswersSelected(request, questionKey, arrayOfAnswerKeys, arrayOfQuestionObjects)
+```
+
+### Error Helpers
+
+The error helpers are a collection of several mini validation checks that are carried out throughout the ffc-grants pages. These validation checks are sent from the page to check user inputs are correctly entered, as well as making sure that the user has sleected at least one option on each required field.
+
+In the application, these functions are used when checking every single entered value, and every single sleected value.
+
+To use these functions, first import **errorHelpers**  from the package
+
+```
+const { errorHelpers } = require('ffc-grants-common-functionality')
+```
+
+Then, call whichever funciton is needed from this module.
+
+**validateAnswerField** validates the requested answer field from the provided page. Some fo the types of validation are **NOT_EMPTY**, **MIN_MAX** and **REGEX** (which thests the answer against the provided regex). This function uses 5 parameters:
+- The provided answer or list of answers to check
+- The type of validation required
+- Further question details (such as the min/max values, regex to be tested against etc)
+- The full payload from the Post request response (which contains the users entered answers on the current page to be validated)
+- The list of question objects
+
+```
+errorHelpers.validateAnswerField(value, validationType, details, payload, ALL_QUESTIONS)
+```
+
+**checkInputError** calls the validateAnswerField function to check every bit of validation required for every field in a question. This function uses 5 parameters:
+- The list of validation checks to run for the field/s
+- A boolean to check if validation requires a second yarKey
+- The full payload from the Post request response (which contains the users entered answers on the current page to be validated)
+- The question yarKey
+- The list of question objects
+
+```
+errorHelpers.checkInputError(validate, isConditionalAnswer, payload, yarKey, ALL_QUESTIONS)
+```
+
+### Page Guard
+
+The page guard is used in every application to make sure the user is not able to enter a url to access a page outside of the expected route, by checking if specific questions and answers have eben provided. This function also checks whether the application is decommissioned or currently live. If this function returns **true**, the user should be redirected to the start page
+
+In the application, these functions are used whenever a new page is being loaded, whether it is through clicking the continue button, navigating using an entered url etc.
+
+To use these functions, first import **pageGuard**  from the package
+
+```
+const { pageGuard } = require('ffc-grants-common-functionality')
+```
+
+Then, call the **guardPage** function from this module.
+
+**guardPage**  runs the page guard checks. First, it checks for whether the service is decommissioned based on the serviceEndDate and serviceEndTime, or if the page to be accessed is the start page or login page (as these are accessible even if the service is decommissioned). 
+
+Then, if these checks are complete and return as false, the page guard checks whether the requested question has been answered correctly. If the required question has not been answered, or has been answered incorrectly based on the page guard requirements, the function returns **true**, meaning that the user should be redirected to the start page.
+
+This function uses 6 parameters:
+- The request
+- The rules for the page guard. This can be either an array of yarKeys to check, or an object containing *preValidationKeys* (as an array), *preValidationAnswer* (as an array), *preValidationRule* (as a string referring) and *preValidationUrls* (as an array)
+- The url of the start page
+- The service end date
+- The service end time
+- The list of question objects
+
+```
+pageGuard.guardPage(request, guardData, startPageUrl, serviceEndDate, serviceEndTime, ALL_QUESTIONS)
 ```
 
 ## Contributing to this project
