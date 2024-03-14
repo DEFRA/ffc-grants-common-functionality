@@ -44,6 +44,33 @@ describe('Error helpers', () => {
         expect(validateAnswerField(value, 'STANDALONE_ANSWER', details, {})).toBe(true)
     })
 
+    test('check validateAnswerField() - DEPENDENT_ANSWERS', async () => {
+      let value = 'hello'
+      let details = { 
+          dependentAnswerArray: ['answerKey1', 'answerKey2'],
+          questionKey: 'questionKey'
+      }
+
+      getQuestionAnswer.mockImplementationOnce(() => 'hello')
+      getQuestionAnswer.mockImplementationOnce(() => 'world')
+
+
+      expect(validateAnswerField(value, 'DEPENDENT_ANSWERS', details, {})).toBe(true)
+
+      value = ['hello', 'world']
+      getQuestionAnswer.mockImplementationOnce(() => 'hello')
+      getQuestionAnswer.mockImplementationOnce(() => 'world')
+
+      expect(validateAnswerField(value, 'DEPENDENT_ANSWERS', details, {})).toBe(false)
+
+      value = ['mock']
+      getQuestionAnswer.mockImplementationOnce(() => 'hello')
+      getQuestionAnswer.mockImplementationOnce(() => 'world')
+
+      expect(validateAnswerField(value, 'DEPENDENT_ANSWERS', details, {})).toBe(true)
+
+    })
+
     test('check validateAnswerField() - CONFIRMATION_ANSWER', async () => {
         let details = { 
             fieldsToCampare: ['field1', 'field2'] 
