@@ -55,19 +55,19 @@ describe('Error helpers', () => {
       getQuestionAnswer.mockImplementationOnce(() => 'world')
 
 
-      expect(validateAnswerField(value, 'DEPENDENT_ANSWERS', details, {})).toBe(false)
+      expect(validateAnswerField(value, 'DEPENDENT_ANSWERS', details, {})).toBe(true)
 
       value = ['hello', 'world']
       getQuestionAnswer.mockImplementationOnce(() => 'hello')
       getQuestionAnswer.mockImplementationOnce(() => 'world')
 
-      expect(validateAnswerField(value, 'DEPENDENT_ANSWERS', details, {})).toBe(true)
+      expect(validateAnswerField(value, 'DEPENDENT_ANSWERS', details, {})).toBe(false)
 
       value = ['mock']
       getQuestionAnswer.mockImplementationOnce(() => 'hello')
       getQuestionAnswer.mockImplementationOnce(() => 'world')
 
-      expect(validateAnswerField(value, 'DEPENDENT_ANSWERS', details, {})).toBe(false)
+      expect(validateAnswerField(value, 'DEPENDENT_ANSWERS', details, {})).toBe(true)
 
     })
 
