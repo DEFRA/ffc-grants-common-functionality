@@ -51,17 +51,21 @@ describe('Error helpers', () => {
           questionKey: 'questionKey'
       }
 
-      getQuestionAnswer.mockImplementationOnce(() => ['hello', 'world'])
+      getQuestionAnswer.mockImplementationOnce(() => 'hello')
+      getQuestionAnswer.mockImplementationOnce(() => 'world')
+
 
       expect(validateAnswerField(value, 'DEPENDENT_ANSWERS', details, {})).toBe(false)
 
       value = ['hello', 'world']
-      getQuestionAnswer.mockImplementationOnce(() => ['hello', 'world'])
+      getQuestionAnswer.mockImplementationOnce(() => 'hello')
+      getQuestionAnswer.mockImplementationOnce(() => 'world')
 
       expect(validateAnswerField(value, 'DEPENDENT_ANSWERS', details, {})).toBe(true)
 
       value = ['mock']
-      getQuestionAnswer.mockImplementationOnce(() => ['hello', 'world'])
+      getQuestionAnswer.mockImplementationOnce(() => 'hello')
+      getQuestionAnswer.mockImplementationOnce(() => 'world')
 
       expect(validateAnswerField(value, 'DEPENDENT_ANSWERS', details, {})).toBe(false)
 
