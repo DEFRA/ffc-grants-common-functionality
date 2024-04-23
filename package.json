@@ -1,6 +1,6 @@
 {
   "name": "ffc-grants-common-functionality",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "description": "Common functionality package for ffc-grants",
   "main": "lib/index.js",
   "directories": {
