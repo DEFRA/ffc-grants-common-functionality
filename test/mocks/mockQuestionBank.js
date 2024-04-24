@@ -460,7 +460,7 @@ const questionBank = {
           preValidationObject: {
             preValidationKeys: ['solarTechnologies'],
             preValidationAnswer: ['solar-technologies-A2'],
-            preValidationRule: 'NOTINCLUDES',
+            preValidationRule: 'INCLUDES',
             preValidationUrls: ['solar-technologies']
           },
           id: 'solarInstallation',

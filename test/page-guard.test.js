@@ -182,6 +182,53 @@ describe('Page Guard', () => {
     expect(guardPage(request, guardData, '/start', '2031/02/17', '23:59:58', mockQuestionBank)).toBe(true)
   })
 
+  it('INCLUDES - should return false if any expected key found', async () => {
+
+    let guardData = {
+      preValidationKeys: ['solarTechnologies'],
+      preValidationAnswer: ['solar-technologies-A2'],
+      preValidationRule: 'INCLUDES',
+      preValidationUrls: ['solar-technologies']
+    }
+
+    getQuestionAnswer.mockImplementationOnce(() => 'Solar PV panels')
+    getYarValue.mockImplementationOnce(() => 'Solar PV panels')
+    getYarValue.mockImplementationOnce(() => 'Solar PV panels')
+
+    expect(guardPage(request, guardData, '/start', '2031/02/17', '23:59:58', mockQuestionBank)).toBe(false)
+  })
+
+  it('INCLUDES - should return true if key not found', async () => {
+
+    let guardData = {
+      preValidationKeys: ['solarTechnologies'],
+      preValidationAnswer: ['solar-technologies-A2'],
+      preValidationRule: 'INCLUDES',
+      preValidationUrls: ['solar-technologies']
+      }
+
+      getQuestionAnswer.mockImplementationOnce(() => 'Solar PV panels')
+      getYarValue.mockImplementationOnce(() => ['Battery storage'])
+      getYarValue.mockImplementationOnce(() => ['Battery storage'])
+
+    expect(guardPage(request, guardData, '/start', '2031/02/17', '23:59:58', mockQuestionBank)).toBe(true)
+  })
+
+  it('INCLUDES - should return true if yar value is null', async () => {
+
+    let guardData = {
+      preValidationKeys: ['solarTechnologies'],
+      preValidationAnswer: ['solar-technologies-A2'],
+      preValidationRule: 'INCLUDES',
+      preValidationUrls: ['solar-technologies']
+    }
+
+    getQuestionAnswer.mockImplementationOnce(() => 'Solar PV panels')
+    getYarValue.mockImplementationOnce(() => null)
+    getYarValue.mockImplementationOnce(() => null)
+
+    expect(guardPage(request, guardData, '/start', '2031/02/17', '23:59:58', mockQuestionBank)).toBe(true)
+  })
   it('DEFAULT - should return false', async () => {
 
     let guardData = {
