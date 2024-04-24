@@ -193,7 +193,7 @@ describe('Page Guard', () => {
 
     getQuestionAnswer.mockImplementationOnce(() => 'Solar PV panels')
     getYarValue.mockImplementationOnce(() => 'Solar PV panels')
-    getYarValue.mockImplementationOnce(() => 'Solar PV panels')
+    getYarValue.mockImplementation(() => 'Solar PV panels')
 
     expect(guardPage(request, guardData, '/start', '2031/02/17', '23:59:58', mockQuestionBank)).toBe(false)
   })
@@ -211,6 +211,7 @@ describe('Page Guard', () => {
       getYarValue.mockImplementationOnce(() => ['Battery storage'])
       getYarValue.mockImplementationOnce(() => ['Battery storage'])
 
+
     expect(guardPage(request, guardData, '/start', '2031/02/17', '23:59:58', mockQuestionBank)).toBe(true)
   })
 
@@ -226,6 +227,7 @@ describe('Page Guard', () => {
     getQuestionAnswer.mockImplementationOnce(() => 'Solar PV panels')
     getYarValue.mockImplementationOnce(() => null)
     getYarValue.mockImplementationOnce(() => null)
+
 
     expect(guardPage(request, guardData, '/start', '2031/02/17', '23:59:58', mockQuestionBank)).toBe(true)
   })
