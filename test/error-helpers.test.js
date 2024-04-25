@@ -117,10 +117,13 @@ describe('Error helpers', () => {
 
         expect(validateAnswerField(5, 'MIN_MAX', details, {})).toBe(true)
 
+        expect(validateAnswerField('7,000', 'MIN_MAX', details, {})).toBe(false)
+
         expect(validateAnswerField(0, 'MIN_MAX', details, {})).toBe(false)
 
         expect(validateAnswerField(30, 'MIN_MAX', details, {})).toBe(false)
     })
+    
 
     test('check validateAnswerField() - default check', async () => {
         expect(validateAnswerField('hello', 'DEFAULT_SELECT', {}, {})).toBe(false)
