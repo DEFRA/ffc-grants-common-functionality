@@ -71,6 +71,35 @@ describe('Error helpers', () => {
 
     })
 
+    test('check validateAnswerField() -   COMBINATION_ANSWER', async () => {
+      let value = ['hello', 'hi']
+      let details = { 
+        combinationObject: {
+          questionKey: 'questionKey',
+          combinationAnswerKeys: ['answerKey1', 'answerKey2']
+        }
+      }
+
+      getQuestionAnswer.mockImplementationOnce(() => 'hello')
+      getQuestionAnswer.mockImplementationOnce(() => 'world')
+
+
+      expect(validateAnswerField(value, 'COMBINATION_ANSWER', details, {})).toBe(false)
+
+      value = ['hello', 'world']
+      getQuestionAnswer.mockImplementationOnce(() => 'hello')
+      getQuestionAnswer.mockImplementationOnce(() => 'world')
+
+      expect(validateAnswerField(value, 'COMBINATION_ANSWER', details, {})).toBe(true)
+
+      value = ['mock']
+      getQuestionAnswer.mockImplementationOnce(() => 'hello')
+      getQuestionAnswer.mockImplementationOnce(() => 'world')
+
+      expect(validateAnswerField(value, 'COMBINATION_ANSWER', details, {})).toBe(true)
+
+    })
+
     test('check validateAnswerField() - CONFIRMATION_ANSWER', async () => {
         let details = { 
             fieldsToCampare: ['field1', 'field2'] 
