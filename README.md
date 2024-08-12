@@ -151,6 +151,15 @@ utils.getQuestionByKey(questionKey, arrayOfQuestionObjects)
 utils.getQuestionAnswer(questionKey, answerKey, arrayOfQuestionObjects)
 ```
 
+**getAnswersKeys** retrieves answers keys based on the provided question key and answers values. It uses 3 parameters:
+- The question key to look for
+- The answers values for the specific answers to look for
+- The list of question objects
+
+```
+utils.getAnswersKeys(questionKey, answersValues, arrayOfQuestionObjects)
+```
+
 **allAnswersSelected** returns a list of all of the answers the user selected on a page. It uses 4 parameters:
 - The request (for retrieving the users answers)
 - The question key to look for
