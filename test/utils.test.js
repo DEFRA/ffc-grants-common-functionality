@@ -79,6 +79,11 @@ describe('Utils', () => {
     expect(getQuestionAnswer('mock', 'mock-A1', questionMock)).toBe('Mocking answer')
   })
 
+  test('getAnswersKeys', () => {
+    const { getAnswersKeys } = require('./../lib/utils')
+    expect(getAnswersKeys('mock', ['Mocking answer', 'not mock'], questionMock)).toEqual(['mock-A1', 'mock-A2'])
+  })
+
   test('allAnswersSelected', () => {
     const { allAnswersSelected } = require('./../lib/utils')
 
